@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="sib_cheque_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.basic_layout">
+                        <div class="page">
+                            <link rel="stylesheet" href="/odt_areen_cheque/static/src/css/report.css"/>
+                                   <table name="tabl_re" style="width: 1016.692px; height:336.377px; font-size:12px;">
+                                       <tr style=" height:33.637px">
+                                           <td colspan="3" class="text-center"><span t-esc="doc.payment_date"/></td>
+                                           <td colspan="8" style="width: 616.818px"/>
+                                           <td colspan="2" class="text-center"><span t-esc="doc.payment_date"/></td>
+                                       </tr>
+                                       <tr style=" height:33.637px">
+                                            <td colspan="3" class="text-center">To</td>
+                                           <td colspan="8" style="width: 616.818px"/>
+                                           <td colspan="2" class="text-center">جدة</td>
+                                       </tr>
+                                       <tr style=" height:33.637px">
+                                           <td colspan="3" class="text-center">For.S.r</td>
+                                           <td colspan="10"/>
+                                       </tr>
+                                       <tr style=" height:33.637px">
+                                           <td style="width: 81.889px"/>
+                                           <td style="width: 167px" colspan="2" class="text-center">Brought</td>
+                                           <td colspan="10" style="width:771.023px"/>
+
+                                       </tr>
+                                       <tr style=" height:33.637px">
+                                            <td/>
+                                           <td style="width: 167px" colspan="2" class="text-center">Deposits</td>
+                                           <td colspan="6" class="text-center"><span t-esc="doc.partner_id.name"/></td>
+                                           <td colspan="4"/>
+                                       </tr>
+                                       <tr style=" height:33.637px">
+                                           <td/>
+                                           <td colspan="2" class="text-center">Total</td>
+                                           <td colspan="8" class="text-center"><span t-esc="doc.convert_number(doc.amount)"/> ريال فقط لا غير</td>
+                                           <td colspan="2" class="text-center"><span t-esc="doc.amount"/></td>                                       </tr>
+                                     <tr style=" height:33.637px">
+                                            <td/>
+                                           <td colspan="2" class="text-center">Drawings</td>
+                                           <td colspan="10"/>
+                                       </tr>
+                                         <tr style=" height:33.637px">
+                                           <td/>
+                                           <td colspan="2" class="text-center">Balance</td>
+                                           <td colspan="7"/>
+                                           <td colspan="3" class="text-center">Signature</td>                                       </tr>
+                                       <tr style=" height:33.637px">
+                                           <td colspan="3"/>
+                                           <td colspan="10" style="width:771.023px"/>
+                                       </tr>
+                                       <tr style=" height:33.637px">
+                                            <td colspan="3" style="width: 245.669px"/>
+                                           <td colspan="10" style="width:771.023px"/>
+                                       </tr>
+                                   </table>
+
+                                </div>
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
+

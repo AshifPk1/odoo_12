@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_view_search_inherit_sale_triple" model="ir.ui.view">
+            <field name="name">sale.order.search.inherit.sale</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+<!--                    <field name="categ_id" string="Category"/>-->
+                    <field name="order_line" string="Category" filter_domain="[('order_line.categ_id', 'ilike', self)]"/>
+                </xpath>
+            </field>
+    </record>
+
+    <record id="sale_order_triple_discount_form_view" model="ir.ui.view">
+        <field name="name">sale.order.triple.discount.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="groups_id"
+               eval="[(4, ref('sale.group_discount_per_so_line'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']" position="attributes">
+               <attribute name="context">{'default_x_kecamatan':x_kecamatan}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="before">
+               <field name="x_kecamatan" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="before">
+               <field name="categ_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom_qty']" position="after">
+                <field name="x_kecamatan" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='price_unit']" position="after">
+                <field name="x_kecamatan" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom_qty']" position="after">
+                <field name="additional_uom_qty"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="before">
+                <field name="sl_no"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']"
+                   position="after">
+                <field name="form_discount" invisible="1"/>
+                <field name="categ_id" invisible="1"/>
+                <field name="discount1" />
+                <field name="discount2" />
+                <field name="discount3" />
+                <field name="discount4"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='price_unit']" position="after">
+                <field name="form_discount" invisible="1"/>
+                <field name="discount1" />
+                <field name="discount2" />
+                <field name="discount3" />
+                <field name="discount4"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//div[@name='discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']" position="after">
+                <group class="oe_subtotal_footer oe_left" >
+                  <group name="discount" colspan="2">
+                      <field name="discount_type" widget="radio"/>
+                      <field name="discount_rate"/>
+                  </group>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

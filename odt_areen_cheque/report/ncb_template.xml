@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="ncb_cheque_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.basic_layout">
+                        <div class="page">
+                            <link rel="stylesheet" href="/odt_areen_cheque/static/src/css/report.css"/>
+                                   <table name="tabl_re" style="width: 857.952px; height:283.464px; font-size:12px;">
+                                       <tr style=" height:28.346px">
+                                            <td colspan="3" style="width: 207.874px"/>
+                                            <td colspan="10" style="width:650.078px"></td>
+                                       </tr>
+                                       <tr style=" height:28.346px">
+                                           <td colspan="3"><center>000000002</center></td>
+                                           <td colspan="8" style="width:613.795"></td>
+                                           <td colspan="2"><center><span t-esc="doc.payment_date"/></center></td>
+                                       </tr>
+                                       <tr style=" height:28.346px">
+                                           <td colspan="3"><center><span t-esc="doc.payment_date"/></center></td>
+                                           <td colspan="7"></td>
+                                           <td colspan="3"><center>جدة</center></td>
+                                       </tr>
+                                       <tr style=" height:28.346px">
+                                           <td colspan="3"><center>To</center></td>
+                                           <td colspan="10" style="width:771.023px"></td>
+                                       </tr>
+                                       <tr style=" height:28.346px">
+                                           <td colspan="3"><center>For.S.r</center></td>
+                                           <td colspan="7"><center><span t-esc="doc.partner_id.name"/></center></td>
+                                           <td colspan="3"></td>
+                                       </tr>
+                                       <tr style=" height:28.346px">
+                                           <td colspan="3"><center>Brought</center></td>
+                                           <td colspan="8"><center><span t-esc="doc.convert_number(doc.amount)"/> ريال فقط لا غير</center></td>
+                                           <td colspan="2"><center><span t-esc="doc.amount"/></center></td>
+                                       </tr>
+                                       <tr style=" height:28.346px">
+                                           <td colspan="3"><center>Deposits</center></td>
+                                           <td colspan="10" style="width:771.023px"></td>
+                                       </tr>
+                                       <tr style=" height:28.346px">
+                                           <td colspan="3"><center>Total</center></td>
+                                           <td colspan="10" style="width:771.023px"></td>
+                                       </tr>
+                                     <tr style=" height:28.346px">
+                                           <td colspan="3"><center>Drawings</center></td>
+                                            <td colspan="7"></td>
+                                           <td colspan="3"><center>Signature</center></td>
+                                     </tr>
+                                       <tr style=" height:28.346px">
+                                           <td colspan="3"><center>Balance</center></td>
+                                           <td colspan="10" style="width:771.023px"></td>
+                                     </tr>
+                                   </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
+

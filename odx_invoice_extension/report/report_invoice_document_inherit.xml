@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_payment_details"  inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-set='address']"  position="replace">
+            <br/>
+        <div class="row">
+            <div class="col-xs-1"> &#160;&#160;&#160;&#160;</div>
+            <div class="col-xs-3">
+            <span t-if="o.partner_id" t-field="o.partner_id"> </span><br/>
+            <span t-if="o.partner_id" t-field="o.partner_id.street"></span>
+            <t t-if="o.partner_id"><br t-if="o.partner_id.street"/></t>
+            <span t-if="o.partner_id" t-field="o.partner_id.street2"> </span>
+            <t t-if="o.partner_id"><br t-if="o.partner_id.street2"/></t>
+            <span t-if="o.partner_id" t-field="o.partner_id.city">&#160;</span>
+            <span t-if="o.partner_id" t-field="o.partner_id.state_id">&#160;</span>
+            <span t-if="o.partner_id" t-field="o.partner_id.zip">&#160;</span>
+            <t t-if="o.partner_id"><br t-if="o.partner_id.city or o.partner_id.state_id" /></t>
+            <span t-if="o.partner_id" t-field="o.partner_id.country_id"> </span><br/>
+            </div>
+            <div class="col-xs-8"></div>
+        </div>
+         <br/>
+
+        </xpath>
+
+        <xpath expr="//p[@name='comment']" position="replace">
+             <hr/>
+            <div class="row">
+                <div class="col-6">
+                    <strong><span t-if="o.comment">Terms and Conditions</span></strong><br/>
+                    <span t-if="o.comment" t-field="o.comment"/>
+                </div>
+                <div class="col-1">
+                </div>
+
+                <div class="col-5">
+
+                </div>
+            </div>
+        </xpath>
+<!--        <xpath expr="//p[@t-if='o.pricelist_id']" position="after">-->
+            <strong><span>Payment Details</span></strong><br/>
+            <span>Beneficiary Name: Trump Code (Pvt) Ltd</span><br/>
+            <span t-if="o.company_currency_id!=o.currency_id">Beneficiary Account Number: 520030000157 </span>
+            <br t-if="o.company_currency_id!=o.currency_id"/>
+            <span t-if="o.company_currency_id==o.currency_id">Beneficiary Account Number: 020010003386 </span>
+            <br t-if="o.company_currency_id==o.currency_id"/>
+            <span>Bank Name: Sampath Bank PLC</span><br/>
+            <span>Bank Branch: Kiribathgoda Super Branch</span><br/>
+            <span>Bank Swift Code: BSAMLKLX</span><br/><br/>
+<!--        </xpath>-->
+    </template>
+</odoo>

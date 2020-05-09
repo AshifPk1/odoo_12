@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="external_layout_standard">
+        <div class="header">
+            <div class="row">
+                <div class="col-4">
+                    <img src="/odt_stock_delivery_extend/static/src/img/Al-JaredLogo colored.PNG" style="background: white" width="250px" height="100px"/>
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-4">
+                    <span>Our CR:</span><span t-field="company.company_registry"/><br/>
+                    <span>Contact:</span><span t-field="company.phone"/><br/>
+                    <span t-field="company.website"/>
+                </div>
+            </div>
+        </div>
+        <div class="article">
+            <t t-raw="0" />
+        </div>
+        <div class="footer o_boxed_footer">
+            <div class="row">
+                <div class="col-4">
+                    <span>VAT:</span><span t-field="company.vat"/><br/>
+                    <span>Tel:</span><span t-field="company.phone"/><br/>
+                    <span t-field="company.email"></span>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <span t-field="company.street"/><br/>
+                    <span t-field="company.city"/><span>&#160;</span>
+                    <span t-field="company.state_id"/><span>&#160;</span><span t-field="company.zip"/>
+                    <span t-field="company.country_id"/>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="external_layout_custom">
+        <!-- Multicompany -->
+        <t t-if="not o and doc">
+            <t t-set="o" t-value="doc"/>
+        </t>
+
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id.sudo()"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+        <t t-call="odt_stock_delivery_extend.external_layout_standard"><t t-raw="0"/></t>
+    </template>
+</odoo>

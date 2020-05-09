@@ -1,0 +1,39 @@
+<odoo>
+
+
+
+            <record id="wizard_internal_sale_report_view" model="ir.ui.view">
+                <field name="name">internal.sale.report.form</field>
+                <field name="model">internal.sale.report</field>
+                <field name="arch" type="xml">
+                        <form>
+                            <group>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="analytic_account_ids" widget="many2many_tags"/>
+                                <field name="include_invoices_without_so"/>
+                                <field name="show_total"/>
+
+                            </group>
+
+                            <footer>
+                                <button name="print_confirm" string="Print" type="object" class="btn-primary"/>
+                                <button special="cancel" string="Cancel"/>
+                            </footer>
+                        </form>
+                </field>
+            </record>
+
+            <record id="wizard_internal_sale_report" model="ir.actions.act_window" >
+               <field name="name">Internal Sale Report</field>
+               <field name="res_model">internal.sale.report</field>
+               <field name="type">ir.actions.act_window</field>
+               <field name="view_type">form</field>
+               <field name="view_mode">form</field>
+               <field name="target">new</field>
+            </record>
+
+     <menuitem id ="menu_internal_sale_report" parent="sale.menu_sale_report"  name="Internal Sale Report" action="wizard_internal_sale_report"/>
+
+
+</odoo>

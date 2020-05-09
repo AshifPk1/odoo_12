@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="sale_person_report_pdf_template">
+            <t t-call="web.html_container">
+<!--                <t t-foreach="docs" t-as="doc">-->
+                        <t t-call="web.basic_layout">
+                            <center><h3>Sale Report(Based On Sales Rep)</h3></center>
+                            <table class="table-bordered" style="width: 100%; height:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Salesman</th>
+                                        <th>Location</th>
+                                        <th>Clients</th>
+                                        <th>Years</th>
+                                        <th>Quarter</th>
+                                        <th>Month</th>
+                                        <th>Date</th>
+                                        <th>Code</th>
+                                        <th>Product Name</th>
+                                        <th>Product Segmentation</th>
+                                        <th>Quantity</th>
+                                        <th>Price without tax</th>
+                                        <th>Price with tax</th>
+                                        <th>Gross Margin</th>
+                                    </tr>
+                                </thead>
+                                    <tr t-foreach="data" t-as="op">
+                                        <td><span t-esc="op.get('salesman')"/></td>
+                                        <td><span t-esc="op.get('location')"/></td>
+                                        <td><span t-esc="op.get('clients')"/></td>
+                                        <td><span t-esc="op.get('years')"/></td>
+                                        <td><span t-esc="op.get('quarter')"/></td>
+                                        <td><span t-esc="op.get('month')"/></td>
+                                        <td><span t-esc="op.get('date')"/></td>
+                                        <td><span t-esc="op.get('code')"/></td>
+                                        <td><span t-esc="op.get('product_name')"/></td>
+                                        <td><span t-esc="op.get('product_segmentation')"/></td>
+                                        <td><span t-esc="op.get('quantity')"/></td>
+                                        <td><span t-esc="op.get('price_without_tax')"/></td>
+                                        <td><span t-esc="op.get('price_with_tax')"/></td>
+                                        <td><span t-esc="op.get('gross_margin')"/></td>
+                                    </tr>
+                            </table>
+                    </t>
+<!--                </t>-->
+            </t>
+        </template>
+    </data>
+</odoo>
+

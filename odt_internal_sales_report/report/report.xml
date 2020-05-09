@@ -1,0 +1,34 @@
+<odoo>
+
+    <data>
+
+
+    <record id="paperformat_internal_sales" model="report.paperformat">
+        <field name="name">Internal Sales</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">23</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report
+        id="report_internal_sale"
+        model="sale.order"
+        string="Internal Sale Report"
+        name="odt_internal_sales_report.report_internal_sale_report"
+        file="odt_internal_sales_report.report_internal_sale_report"
+        report_type="qweb-pdf"
+        paperformat="paperformat_internal_sales"
+        menu="False" />
+
+
+     </data>
+</odoo>

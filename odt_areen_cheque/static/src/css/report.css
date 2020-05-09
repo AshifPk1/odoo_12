@@ -1,0 +1,42 @@
+
+/* ========== Main ========== */
+
+body {
+    font-family: "Lato", sans-serif;
+    color: #2d3c49;
+    font-weight: 700;
+    font-size: 3em;
+}
+div{
+    font-size: 35px;
+}
+
+hr {
+    border-color: #7d97ad;
+    border-width: 1px;
+}
+
+/* ========== Body ========== */
+
+.logo {
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+/*===============  Footer  ==================*/
+.footer {
+    display: block;
+    margin-top: 20px;
+}
+
+.copyright {
+    padding: 10px;
+    color: #4d4d4d;
+
+}

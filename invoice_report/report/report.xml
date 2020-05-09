@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+         <report
+            id="account_invoices_recipt"
+            model="account.invoice"
+            string="Dot Matrix Print"
+            report_type="qweb-pdf"
+            name="invoice_report.invoice_report"
+            file="invoice_report.invoice_report"
+            />
+
+    </data>
+</odoo>

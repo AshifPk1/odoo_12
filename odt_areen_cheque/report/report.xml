@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sib_cheque" model="report.paperformat">
+            <field name="name">Sib Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">269</field>
+            <field name="page_width">89</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="jazira_cheque" model="report.paperformat">
+            <field name="name">Jazira Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">247</field>
+            <field name="page_width">90</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="alawwal_cheque" model="report.paperformat">
+            <field name="name">Alawwal Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">247</field>
+            <field name="page_width">89</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="ncb_cheque" model="report.paperformat">
+            <field name="name">Ncb Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">267</field>
+            <field name="page_width">89</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="albilad_cheque" model="report.paperformat">
+            <field name="name">Albilad Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">241</field>
+            <field name="page_width">89</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="riyad_cheque" model="report.paperformat">
+            <field name="name">Riyad Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">241</field>
+            <field name="page_width">89</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="alinma_cheque" model="report.paperformat">
+            <field name="name">Alinma Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">268</field>
+            <field name="page_width">89</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="anb_cheque" model="report.paperformat">
+            <field name="name">Anb Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">227</field>
+            <field name="page_width">75</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="rajhi_cheque" model="report.paperformat">
+            <field name="name">Rajhi Cheque</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">230</field>
+            <field name="page_width">215</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report 
+            id="sib_cheque"
+            string="Sib Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.sib_cheque_template"
+            file="odt_areen_cheque.sib_cheque_template"
+            paperformat="odt_areen_cheque.sib_cheque"
+            menu="False"
+        />
+
+
+        <report
+            id="jazira_cheque"
+            string="Jazira Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.jazira_cheque_template"
+            file="odt_areen_cheque.jazira_cheque_template"
+            paperformat="odt_areen_cheque.jazira_cheque"
+            menu="False"
+        />
+        <report
+            id="alawwal_cheque"
+            string="alawwal Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.alawwal_cheque_template"
+            file="odt_areen_cheque.alawwal_cheque_template"
+            paperformat="odt_areen_cheque.alawwal_cheque"
+            menu="False"
+        />
+        <report
+            id="ncb_cheque"
+            string="Ncb Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.ncb_cheque_template"
+            file="odt_areen_cheque.ncb_cheque_template"
+            paperformat="odt_areen_cheque.ncb_cheque"
+            menu="False"
+        />
+        <report
+            id="albilad_cheque"
+            string="Albilad Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.albilad_cheque_template"
+            file="odt_areen_cheque.albilad_cheque_template"
+            paperformat="odt_areen_cheque.albilad_cheque"
+            menu="False"
+        />
+        <report
+            id="riyad_cheque"
+            string="Riyad Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.riyad_cheque_template"
+            file="odt_areen_cheque.riyad_cheque_template"
+            paperformat="odt_areen_cheque.riyad_cheque"
+            menu="False"
+        />
+        <report
+            id="alinma_cheque"
+            string="Alinma Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.alinma_cheque_template"
+            file="odt_areen_cheque.alinma_cheque_template"
+            paperformat="odt_areen_cheque.alinma_cheque"
+            menu="False"
+        />
+        <report
+            id="anb_cheque"
+            string="Anb Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.anb_cheque_template"
+            file="odt_areen_cheque.anb_cheque_template"
+            paperformat="odt_areen_cheque.anb_cheque"
+            menu="False"
+
+        />
+                <report
+            id="rajhi_cheque"
+            string="Rajhi Cheque"
+            model="account.payment"
+            report_type="qweb-pdf"
+            name="odt_areen_cheque.rajhi_cheque_template"
+            file="odt_areen_cheque.rajhi_cheque_template"
+            paperformat="odt_areen_cheque.rajhi_cheque"
+            menu="False"
+
+        />
+
+    </data>
+</odoo>

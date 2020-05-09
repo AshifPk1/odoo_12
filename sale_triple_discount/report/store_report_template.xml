@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <template id="sales_report_store_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                   <div class="page"><br/>
+                        <h4><center><strong>Report Store</strong></center></h4><br/>
+                        <h4><center>Periode : <span/><span t-if="date_from" t-esc="datetime.datetime.strptime(str(date_from), '%Y-%m-%d').strftime('%d/%m/%Y')"/> - <span t-if="date_to" t-esc="datetime.datetime.strptime(str(date_to), '%Y-%m-%d').strftime('%d/%m/%Y')"/></center></h4>
+                        <!--<h4><center>Periode : <span/><span t-esc="date_from"/> - <span t-esc="date_to"/></center></h4>-->
+                        <table name="table_main" class="table table-bordered table-condensed table-bordered table-striped" width="100%" style="font-size: 10px;">
+                            <tr>
+                                <th class="text-center">Source</th>
+                                <th class="text-center">Transaction Date</th>
+                                <th class="text-center">Customer Code</th>
+				    <th class="text-center">Customer Name</th>
+				    <th class="text-center">Internal Reference</th>
+                                <th class="text-center">Product Name</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-center">UOM</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Subtotal</th>
+                                <th class="text-center">Disc Qty</th>
+                                <th class="text-center">Disc.R</th>
+                                <th class="text-center">Disc.C</th>
+                                <th class="text-center">Disc.T</th>
+                                <th class="text-center">Disc.D</th>
+                                <th class="text-center">PPN</th>
+                                <th class="text-center">Grand Total</th>
+                            </tr>
+                            <t t-set="disc1_total" t-value="0"/>
+                            <t t-set="disc2_total" t-value="0"/>
+                            <t t-set="disc3_total" t-value="0"/>
+                            <t t-set="disc4_total" t-value="0"/>
+                            <tr t-foreach="sale_order_lines" t-as="line">
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.order_id"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-if="line.order_id.confirmation_date" t-esc="datetime.datetime.strptime(str(line.order_id.confirmation_date), '%Y-%m-%d %H:%M:%S').strftime('%d-%b-%Y')"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-if="line.order_partner_id.name" t-field="line.order_partner_id.ref"/></td>
+				    <td class="text-center" style="padding: 1px;"><span t-if="line.order_partner_id.name" t-field="line.order_partner_id.name"/></td>
+				    <td class="text-center" style="padding: 1px;"><span t-if="line.product_id.default_code" t-field="line.product_id.default_code"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-esc="line.product_id.name"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-esc="line.product_uom_qty"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.product_uom"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.price_unit"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-esc="(line.price_unit*line.product_uom_qty)"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.additional_uom_qty"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.discount1"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.discount2"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.discount3"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.discount4"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-field="line.tax_id"/></td>
+                                <td class="text-center" style="padding: 1px;"><span t-esc="line.price_total"/></td>
+                                <t t-set="disc1_total" t-value="disc1_total + disc_amount(line,1)"/>
+                                <t t-set="disc2_total" t-value="disc2_total + disc_amount(line,2)"/>
+                                <t t-set="disc3_total" t-value="disc3_total + disc_amount(line,3)"/>
+                                <t t-set="disc4_total" t-value="disc4_total + disc_amount(line,4)"/>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <div class="col-8"> </div>
+                            <div class="col-4">
+                                <table wdith="100%" style="font-size: 12px;">
+                                  <tr>
+                                    <th wdith="49%" class="text-left">Subtotal</th>
+                                    <td wdith="5%" class="text-center">:</td>
+                                    <td wdith="46%" class="text-left"><span t-esc="total_subtotal"/></td>
+                                  </tr>
+                                  <tr>
+                                    <th class="text-left">Total Disc. Qty</th>
+                                    <td wdith="2%" class="text-center">:</td>
+                                    <td class="text-left"><span t-esc="total_disc_qty"/></td>
+                                  </tr>
+                                  <tr>
+                                    <th class="text-left">Total Disc. R</th>
+                                    <td wdith="2%" class="text-center">:</td>
+                                    <td class="text-left"><span t-esc="disc1_total"/></td>
+                                  </tr>
+                                  <tr>
+                                    <th class="text-left">Total Disc. C</th>
+                                    <td wdith="2%" class="text-center">:</td>
+                                    <td class="text-left"><span t-esc="disc2_total"/></td>
+                                  </tr>
+                                  <tr>
+                                    <th class="text-left">Total Disc. T</th>
+                                    <td wdith="2%" class="text-center">:</td>
+                                    <td class="text-left"><span t-esc="disc3_total"/></td>
+                                  </tr>
+                                  <tr>
+                                    <th class="text-left">Total Disc. D</th>
+                                    <td wdith="2%" class="text-center">:</td>
+                                    <td class="text-left"><span t-esc="disc4_total"/></td>
+                                   </tr>
+                                   <tr>
+                                    <th class="text-left">Total DPP</th>
+                                    <td wdith="2%" class="text-center">:</td>
+                                    <td class="text-left"><span t-esc="round(total_price_subtotal,2)"/></td>
+                                  </tr>
+                                   <tr>
+                                    <th class="text-left">Total PPN</th>
+                                    <td wdith="2%" class="text-center">:</td>
+                                    <td class="text-left"><span t-esc="price_tax"/></td>
+                                  </tr>
+                                   <tr>
+                                    <th class="text-left">Grand Total</th>
+                                    <td wdith="2%" class="text-center">:</td>
+                                    <th class="text-left"><span t-esc="round(total_price_subtotal+price_tax,2)"/></th>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                        </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+

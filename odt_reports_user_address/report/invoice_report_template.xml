@@ -1,0 +1,20 @@
+<odoo>
+    <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+                <xpath expr="//t[@t-call='web.external_layout']/div[@class='page']/div/div[6]" position="after">
+                    <div name="salesperson" class="col-auto mw-100 mb-2" t-if="o.user_id">
+                        <strong>SalesPerson:</strong>
+                        <p class="m-0" t-if="o.user_id.name" t-field="o.user_id.name"/>
+                    </div>
+                    <div name="address" class="col-auto mw-100 mb-2"  style="width:30%" t-if="o.user_id">
+                        <strong>Address:</strong><br/>
+                        <span class="m-0" t-if="o.user_id.street" t-field="o.user_id.street"/><span t-if="o.user_id.street2">,</span>
+                        <span class="m-0" t-if="o.user_id.street2" t-field="o.user_id.street2"/><br/>
+                        <span class="m-0" t-if="o.user_id.city" t-field="o.user_id.city"></span>
+                        <span class="m-0" t-if="o.user_id.state_id.name"  t-field="o.user_id.state_id.name"></span>
+                        <span class="m-0" t-if="o.user_id.zip" t-field="o.user_id.zip"></span><br/>
+                        <span class="m-0" t-if="o.user_id.country_id.name" t-field="o.user_id.country_id.name"/>,
+                        <span class="m-0" t-if="o.user_id.phone" t-field="o.user_id.phone"/>
+                    </div>
+                </xpath>
+    </template>
+</odoo>

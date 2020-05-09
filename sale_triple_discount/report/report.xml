@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <report
+            id="sales_report_store_action"
+            model="sale.order"
+            string="Sales Report"
+            report_type="qweb-pdf"
+            name="sale_triple_discount.sales_report_store_template"
+            file="sale_triple_discount.sales_report_store_template"
+            attachment_use="False"
+            menu="False"
+        />
+        <report
+            id="store_report_xlsx"
+            model="sale.report.store.wiz"
+            string="Orders Work Report"
+            report_type="xlsx"
+            name="store.report.report.xlsx"
+            file="Store Report"
+            attachment_use="False"
+            menu="False"
+        />
+
+    </data>
+</odoo>

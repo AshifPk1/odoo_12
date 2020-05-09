@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchaseorder_view_search_inherit_sale_triple" model="ir.ui.view">
+            <field name="name">purchase.order.search.inherit.sale</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="categ_id" string="Category"/>
+                </xpath>
+            </field>
+    </record>
+    <record id="purchase_order_triple_discount_form_view" model="ir.ui.view">
+        <field name="name">purchase.order.triple.discount.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="before">
+                 <field name="sl_no"/>
+             </xpath>
+            <xpath expr="//field[@name='order_line']" position="before">
+               <field name="categ_id" invisible="1"/>
+                <field name="categ_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_qty']" position="after">
+                <field name="additional_uom_qty"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']"
+                   position="after">
+                <field name="form_discount" invisible="1"/>
+                <field name="categ_id" invisible="1"/>
+                <field name="discount1"/>
+                <field name="discount2"/>
+                <field name="discount3"/>
+                <field name="discount4"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='price_unit']"
+                   position="after">
+                <field name="form_discount" invisible="1"/>
+                <field name="categ_id" invisible="1"/>
+                <field name="additional_uom_qty"/>
+                <field name="discount1"/>
+                <field name="discount2"/>
+                <field name="discount3"/>
+                <field name="discount4"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='order_line']" position="after">
+            <group class="oe_subtotal_footer oe_left" >
+              <group name="discount" colspan="2">
+                  <field name="discount_type" widget="radio"/>
+                  <field name="discount_rate"/>
+              </group>
+            </group>
+            </xpath>
+            <xpath expr="//field[@name='amount_untaxed']" position="after">
+                    <field name="total_discount" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="invoice_triple_discount_form_view1" model="ir.ui.view">
+        <field name="name">account.invoice.triple.discount.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']" position="before">
+                <field name="global_discount_amount" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

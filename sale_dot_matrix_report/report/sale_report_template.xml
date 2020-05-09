@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="sale_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="sale_dot_matrix_report.external_layout_custom">
+                        <div class="page" style="font-size: 14px;">
+                            <strong>
+                                <center>
+                                    <h2>Sale Order</h2>
+                                </center>
+                            </strong>
+                            <div class="row">
+                                <div class="col-4">
+                                    <strong>Order:  </strong>
+                                    <span t-esc="doc.name"/>
+                                    <br/>
+                                    <strong>Order Date:  </strong>
+                                    <span t-esc="doc.date_order"/>
+                                </div>
+                                <div class="col-3"/>
+                                <div class="col-5">
+                                    <strong>Salesman:  </strong>
+                                    <span t-esc="doc.user_id.name"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <table class="table-bordered"
+                                   style="width: 100%; height:100%;border: 1px solid black;line-height: 1;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="border: 1px solid black;">No</th>
+                                        <th class="text-center" style="border: 1px solid black;">Internal Ref</th>
+                                        <th class="text-center" style="border: 1px solid black;">Product Name</th>
+                                        <th class="text-center" style="border: 1px solid black;">Qty</th>
+                                        <th class="text-center" style="border: 1px solid black;">Disc. Qty</th>
+                                        <th class="text-center" style="border: 1px solid black;">Unit</th>
+                                        <th class="text-center" style="border: 1px solid black;">Price</th>
+                                        <th class="text-center" style="border: 1px solid black;">Disc R</th>
+                                        <th class="text-center" style="border: 1px solid black;">Disc C</th>
+                                        <th class="text-center" style="border: 1px solid black;">Disc T</th>
+                                        <th class="text-center" style="border: 1px solid black;">Disc D</th>
+                                        <th class="text-center" style="border: 1px solid black;">Sub Total</th>
+                                    </tr>
+                                </thead>
+                                <t t-set="total_disc_quantity" t-value="0"/>
+                                <t t-set="sub_total" t-value="0"/>
+                                <tr t-foreach="doc.order_line" t-as="op">
+                                    <td style="padding: 2px;border: 1px solid black;" class="text-center">
+                                        <span t-esc="op_index + 1"/>
+                                    </td>
+                                    <td style="padding: 2px;border: 1px solid black;" class="text-center">
+                                        <t t-if="op.product_id">
+                                            <span t-esc="op.product_id.default_code"/>
+                                        </t>
+                                    </td>
+                                    <td style="padding: 2px;border: 1px solid black;">
+                                        <t t-if="op.product_id">
+                                            <span t-field="op.product_id"/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;padding: 2px;border: 1px solid black;">
+                                        <t t-if="op.product_uom_qty">
+                                            <span t-esc="op.product_uom_qty"/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;padding: 2px;border: 1px solid black;">
+                                        <span t-esc="op.additional_uom_qty"/>
+                                    </td>
+                                    <td style="padding: 2px;border: 1px solid black;" class="text-center">
+                                        <span t-field="op.product_uom"/>
+                                    </td>
+                                    <td style="text-align:right;padding: 2px;border: 1px solid black;">
+                                        <t t-if="op.price_unit">
+                                            <span t-field="op.price_unit"/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;padding: 2px;border: 1px solid black;">
+                                        <t t-if="op.discount1">
+                                            <span t-field="op.discount1"/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;padding: 2px;border: 1px solid black;">
+                                        <t t-if="op.discount2">
+                                            <span t-field="op.discount2"/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;padding: 2px;border: 1px solid black;">
+                                        <t t-if="op.discount3">
+                                            <span t-field="op.discount3"/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;padding: 2px;border: 1px solid black;">
+                                        <t t-if="op.discount4">
+                                            <span t-field="op.discount4"/>
+                                        </t>
+                                    </td>
+                                    <td style="text-align:right;padding: 2px;border: 1px solid black;">
+                                        <t t-if="op.price_subtotal">
+                                            <span t-field="op.price_subtotal"/>
+                                        </t>
+                                    </td>
+                                    <t t-set="sub_total" t-value="sub_total+(op.product_uom_qty * op.price_unit)"/>
+                                    <t t-set="total_disc_quantity" t-value="total_disc_quantity+op.additional_uom_qty"/>
+                                </tr>
+                            </table>
+                            <br/>
+                            <div class="row">
+                                <div class="col-6">
+                                    <strong>Terbilang:  </strong>
+                                    <span t-esc="doc.amount_to_words(doc.amount_total)"/>
+                                    <span>  rupiah</span>
+                                </div>
+                                <div class="col-2">
+                                </div>
+                                <div class="col-4">
+                                    <strong>Sub Total:</strong>
+                                    <span style="float:right" t-esc="round(sub_total,2)" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                    <br/>
+                                    <strong>Disc. Qty:</strong>
+                                    <span style="float:right" t-esc="total_disc_quantity"/>
+                                    <br/>
+                                    <strong>Total Disc:</strong>
+                                    <span style="float:right" t-esc="round((sub_total- doc.amount_untaxed),2)" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                    <br/>
+                                    <strong>PPN:</strong>
+                                    <span style="float:right" t-field="doc.amount_tax"/>
+                                    <br/>
+                                    <strong>Grand Total:</strong>
+                                    <span style="float:right" t-esc="round(doc.amount_total,2)" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                    <br/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-4">
+                                    <span t-esc="doc.partner_id.name"/>
+                                </div>
+                                <div class="col-4">
+                                    <span>Gudang 1</span>
+                                </div>
+                                <div class="col-4">
+                                    <t t-if="doc.partner_id.company_id">
+                                        <span t-esc="doc.partner_id.company_id.name"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

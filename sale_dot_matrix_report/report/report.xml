@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+         <report
+            id="sale_invoices_recipt"
+            model="sale.order"
+            string="Dot Matrix Print"
+            report_type="qweb-pdf"
+            name="sale_dot_matrix_report.sale_report"
+            file="sale_dot_matrix_report.sale_report"
+            />
+    </data>
+</odoo>

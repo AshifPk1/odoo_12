@@ -1,0 +1,305 @@
+<odoo>
+
+    <template id="report_internal_sale_report">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                    <t class="page">
+
+                        <center><h2>Internal Sale Report</h2></center><br/>
+                        <div class="row">
+                            <div class="col-xs-1">
+                                <strong>From:</strong>
+                            </div>
+                            <div class="col-xs-2">
+                                <strong><span t-esc="data.get('date_from')"/></strong>
+                            </div>
+                            <div class="col-xs-1">
+                                <strong>To:</strong>
+                            </div>
+                            <div class="col-xs-2">
+                                <strong><span t-esc="data.get('date_to')"/></strong>
+                            </div>
+                            <div class="col-xs-2">
+                                <strong>Analytic Account:</strong>
+                            </div>
+                            <div class="col-xs-3">
+                                <t t-if="data.get('analytic_account')">
+                                    <t t-foreach="data.get('analytic_account')" t-as="analytic">
+                                        <strong><span t-esc="analytic.name"/></strong>,
+                                    </t>
+                                </t>
+
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <t t-set="so_final_total" t-value="0"/>
+                        <t t-set="inv_final_total" t-value="0"/>
+                        <t t-set="payment_final_total" t-value="0"/>
+
+                        <t t-if="data.get('analytic_account')">
+                            <t t-foreach="data.get('analytic_account')" t-as="analytic">
+                                <t t-set="so_total" t-value="0"/>
+                                <t t-set="inv_total" t-value="0"/>
+                                <t t-set="pay_total" t-value="0"/>
+                                <strong><span t-esc="analytic.name"/></strong>
+                                <table class="table table-condensed table-striped table-responsive;page-break-inside: avoid;">
+                                       <thead>
+                                           <tr>
+
+                                               <th>Sale Order</th>
+                                               <th>Date</th>
+                                               <th>Customer</th>
+                                               <th>SO Amount</th>
+                                               <th>Invoices</th>
+                                               <th>Invoice Amount</th>
+                                               <th style="width:15%">Invoice Date</th>
+                                               <th>Payment Amount</th>
+                                               <th style="width:15%">Payment Date</th>
+
+                                           </tr>
+                                       </thead>
+
+
+                                       <tbody>
+                                                <t t-foreach="sale_orders(data,analytic)" t-as="so">
+                                                <!--<t t-if="len(so)>=1">-->
+                                                <t t-foreach="so" t-as="s">
+                                                <!--<t t-if="docs">-->
+                                                <tr>
+                                                <td t-if="not data.get('show_total')==True"><span t-esc="s.name"/></td>
+                                                <td t-if="not data.get('show_total')==True"><span t-esc="s.confirmation_date"/></td>
+                                                <td t-if="not data.get('show_total')==True"><span t-esc="s.partner_id.name"/></td>
+                                                <td t-if="not data.get('show_total')==True"><span t-esc="s.amount_total"/></td>
+                                                <t t-set="so_total" t-value="so_total+s.amount_total"/>
+
+                                                <t t-foreach="s.invoice_ids" t-as="invoice">
+                                                    <t t-if="invoice.state in ('open','paid')">
+                                                    <tr>
+                                                        <td   t-if="not data.get('show_total')==True"/>
+                                                        <td   t-if="not data.get('show_total')==True"/>
+                                                        <td   t-if="not data.get('show_total')==True"/>
+                                                        <td   t-if="not data.get('show_total')==True"/>
+                                                            <td   t-if="not data.get('show_total')==True"><span t-esc="invoice.number"/></td>
+                                                            <td   t-if="not data.get('show_total')==True"><span t-esc="invoice.amount_total"/></td>
+                                                            <t t-set="inv_total" t-value="inv_total+invoice.amount_total"/>
+                                                            <td   t-if="not data.get('show_total')==True"><span t-esc="invoice.date_invoice"/></td>
+                                                            <t t-foreach="invoice.payment_ids" t-as="payment">
+                                                                <tr>
+                                                                    <td   t-if="not data.get('show_total')==True"/>
+                                                                    <td   t-if="not data.get('show_total')==True"/>
+                                                                    <td   t-if="not data.get('show_total')==True"/>
+                                                                    <td   t-if="not data.get('show_total')==True"/>
+                                                                    <td   t-if="not data.get('show_total')==True"/>
+                                                                    <td   t-if="not data.get('show_total')==True"/>
+                                                                    <td   t-if="not data.get('show_total')==True"/>
+                                                                    <td   t-if="not data.get('show_total')==True"><span t-esc="payment.amount"/></td>
+                                                                    <td   t-if="not data.get('show_total')==True"><span t-esc="payment.payment_date"/></td>
+                                                                    <t t-set="pay_total" t-value="pay_total+payment.amount"/>
+                                                                </tr>
+                                                            </t>
+                                                    </tr>
+                                                    </t>
+
+                                                </t>
+                                                </tr>
+                                                </t>
+                                                </t>
+                                                <tr>
+                                                        <td colspan="3"><strong>Total</strong></td>
+                                                        <td><span t-esc="round(so_total,4)"/></td>
+                                                        <t t-set="so_final_total" t-value="so_final_total+so_total"/>
+                                                        <td/>
+                                                        <td><span t-esc="round(inv_total,4)"/></td>
+                                                        <t t-set="inv_final_total" t-value="inv_final_total+inv_total"/>
+                                                        <td/>
+                                                        <td><span t-esc="round(pay_total,4)"/></td>
+                                                        <t t-set="payment_final_total" t-value="payment_final_total+pay_total"/>
+                                                        <td/>
+                                               </tr>
+                                       </tbody>
+                                       </table>
+                                       </t>
+                                       </t>
+
+                                       <t t-else="">
+
+                                        <t t-set="so_total" t-value="0"/>
+                                        <t t-set="inv_total" t-value="0"/>
+                                        <t t-set="pay_total" t-value="0"/>
+                                       <table class="table table-condensed table-striped table-responsive;page-break-inside: avoid;">
+                                       <thead t-if="not data.get('show_total')==True">
+                                           <tr >
+
+                                               <th>Sale Order</th>
+                                               <th>Date</th>
+                                               <th>Customer</th>
+                                               <th>SO Amount</th>
+                                               <th>Invoices</th>
+                                               <th>Invoice Amount</th>
+                                               <th style="width:15%">Invoice Date</th>
+                                               <th>Payment Amount</th>
+                                               <th style="width:15%">Payment Date</th>
+
+                                           </tr>
+                                       </thead>
+
+                                       <tbody>
+                                        <t t-foreach="docs" t-as="doc">
+                                            <!--<t t-foreach="products(doc,ware_house,branches)" t-as="op">-->
+                                            <tr t-if="data.get('show_total')">
+                                                <td t-if="not data.get('show_total')==True"><span t-esc="doc.name"/></td>
+                                                <td t-if="not data.get('show_total')==True"><span t-esc="doc.confirmation_date"/></td>
+                                                <td t-if="not data.get('show_total')==True"><span t-esc="doc.partner_id.name"/></td>
+                                                <td t-if="not data.get('show_total')==True"><span t-esc="doc.amount_total"/></td>
+                                                <t t-set="so_total" t-value="so_total+doc.amount_total"/>
+
+                                                <t t-foreach="doc.invoice_ids" t-as="invoice">
+                                                    <t t-if="invoice.state in ('open','paid')">
+                                                    <tr>
+                                                        <td t-if="not data.get('show_total')==True"/>
+                                                        <td t-if="not data.get('show_total')==True"/>
+                                                        <td t-if="not data.get('show_total')==True"/>
+                                                        <td t-if="not data.get('show_total')==True"/>
+                                                            <td t-if="not data.get('show_total')==True"><span t-esc="invoice.number"/></td>
+                                                            <td t-if="not data.get('show_total')==True"><span t-esc="invoice.amount_total"/></td>
+                                                            <t t-set="inv_total" t-value="inv_total+invoice.amount_total"/>
+                                                            <td t-if="not data.get('show_total')==True"><span t-esc="invoice.date_invoice"/></td>
+                                                            <t t-foreach="invoice.payment_ids" t-as="payment">
+                                                                <tr t-if="not data.get('show_total')==True">
+                                                                    <td/>
+                                                                    <td/>
+                                                                    <td/>
+                                                                    <td/>
+                                                                    <td/>
+                                                                    <td/>
+                                                                    <td/>
+                                                                    <td><span t-esc="payment.amount"/></td>
+                                                                    <td><span t-esc="payment.payment_date"/></td>
+                                                                </tr>
+                                                                    <t t-set="pay_total" t-value="pay_total+payment.amount"/>
+                                                            </t>
+                                                    </tr>
+                                                    </t>
+                                                </t>
+                                            </tr>
+                                        <!--</t>-->
+                                        </t>
+                                        <tr>
+                                            <td colspan="3"><strong>Total</strong></td>
+                                            <td><span t-esc="round(so_total,4)"/></td>
+                                            <t t-set="so_final_total" t-value="so_final_total+so_total"/>
+                                            <td/>
+                                            <td><span t-esc="round(inv_total,4)"/></td>
+                                            <t t-set="inv_final_total" t-value="inv_final_total+inv_total"/>
+                                            <td/>
+                                            <td><span t-esc="round(pay_total,4)"/></td>
+                                            <t t-set="payment_final_total" t-value="payment_final_total+pay_total"/>
+                                            <td/>
+                                        </tr>
+
+                                       </tbody>
+                                       </table>
+                                   </t>
+                                   <t t-if="data.get('need_invoices_without_so')==True">
+                                   <strong>Invoices Without SO</strong>
+
+                                   <table class="table table-condensed table-striped table-responsive;page-break-inside: avoid;">
+                                       <thead>
+                                       <tr>
+
+                                           <th/>
+                                           <th>Date</th>
+                                           <th>Customer</th>
+                                           <th/>
+                                           <th>Invoices</th>
+                                           <th>Invoice Amount</th>
+                                           <th style="width:15%">Invoice Date</th>
+                                           <th>Payment Amount</th>
+                                           <th style="width:15%">Payment Date</th>
+
+                                       </tr>
+                                   </thead>
+
+                                    <tbody>
+                                       <!--<t t-set="so_total" t-value="0"/>-->
+                                       <t t-set="inv_total" t-value="0"/>
+                                       <t t-set="pay_total" t-value="0"/>
+                                        <t t-foreach="invoices" t-as="invoice">
+                                        <!--<t t-foreach="products(doc,ware_house,branches)" t-as="op">-->
+                                        <tr>
+                                            <td t-if="not data.get('show_total')==True"></td>
+                                            <td t-if="not data.get('show_total')==True"></td>
+                                            <td t-if="not data.get('show_total')==True"><span t-esc="invoice.partner_id.name"/></td>
+                                            <td t-if="not data.get('show_total')==True"></td>
+                                            <!--<t t-set="so_total" t-value="so_total+doc.amount_total"/>-->
+
+                                            <!--<t t-foreach="doc.invoice_ids" t-as="invoice">-->
+                                                <t t-if="invoice.state in ('open','paid')">
+                                                <!--<tr>-->
+                                                    <!--<td/>-->
+                                                    <!--<td/>-->
+                                                    <!--<td/>-->
+                                                    <!--<td/>-->
+                                                        <td t-if="not data.get('show_total')==True"><span t-esc="invoice.number"/></td>
+                                                        <td t-if="not data.get('show_total')==True"><span t-esc="invoice.amount_total"/></td>
+                                                        <t t-set="inv_total" t-value="inv_total+invoice.amount_total"/>
+                                                        <td t-if="not data.get('show_total')==True"><span t-esc="invoice.date_invoice"/></td>
+                                                        <t t-foreach="invoice.payment_ids" t-as="payment">
+                                                            <tr t-if="not data.get('show_total')==True">
+                                                                <td/>
+                                                                <td/>
+                                                                <td/>
+                                                                <td/>
+                                                                <td/>
+                                                                <td/>
+                                                                <td/>
+                                                                <td><span t-esc="payment.amount"/></td>
+                                                                <td><span t-esc="payment.payment_date"/></td>
+                                                            </tr>
+                                                                <t t-set="pay_total" t-value="pay_total+payment.amount"/>
+                                                        </t>
+                                                </t>
+                                                </tr>
+                                                </t>
+                                            <!--</t>-->
+                                        <!--</tr>-->
+                                    <!--</t>-->
+                                    <tr>
+                                        <td colspan="3"><strong>Total</strong></td>
+                                        <td></td>
+                                        <td/>
+                                        <td><span t-esc="round(inv_total,4)"/></td>
+                                        <t t-set="inv_final_total" t-value="inv_final_total+inv_total"/>
+                                        <td/>
+                                        <td><span t-esc="round(pay_total,4)"/></td>
+                                        <t t-set="payment_final_total" t-value="payment_final_total+pay_total"/>
+                                        <td/>
+                                    </tr>
+                                   </tbody>
+                            </table>
+                            </t>
+                        <br/>
+                        <br/>
+                        <center><h4>Total Amounts</h4></center><br/>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <strong>Total SO Amount:</strong><br/>
+                                <strong><span t-esc="round(so_final_total,4)"/></strong>
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Total Invoice Amount:</strong><br/>
+                                <strong><span t-esc="round(inv_final_total,4)"/></strong>
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Total Payment Amount:</strong><br/>
+                                <strong><span t-esc="round(payment_final_total,4)"/></strong>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        <!--</t>-->
+    </template>
+
+</odoo>
